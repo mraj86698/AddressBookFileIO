@@ -171,7 +171,32 @@ public class AddressBook {
 	 * @return
 	 */
 	private List<Contact> sortAddressBookByName(List<Contact> sortList) {
-		Collections.sort(sortList,new Contact());
+		FlexibleSort flexibleSort = new FlexibleSort(FlexibleSort.Order.NAME);
+		Collections.sort(sortList, flexibleSort);
+		return sortList;
+	}
+	/**
+	 * Ability to sort the entries in the address book by City,State, or Zip
+	 * @param sortChoice
+	 * @param sortList
+	 * @return Sorted Address Book List By Choice (UC12)
+	 */
+	private List<Contact> sortAddressBookByChoice(int sortChoice, List<Contact> sortList) {
+		FlexibleSort flexibleSort = null;
+		switch (sortChoice) {
+		case 1:
+			flexibleSort = new FlexibleSort(FlexibleSort.Order.CITY);
+			break;
+		case 2:
+			flexibleSort = new FlexibleSort(FlexibleSort.Order.STATE);
+			break;
+		case 3:
+			flexibleSort = new FlexibleSort(FlexibleSort.Order.ZIP);
+			break;
+		default:
+			System.out.println("Invalid Choice");
+		}
+		Collections.sort(sortList, flexibleSort);
 		return sortList;
 	}
 
@@ -185,10 +210,10 @@ public class AddressBook {
 		 * Then Enter the Name of Address Book to add
 		 */
 		System.out.println("Welcome to address book program");
-		while (choice != 10) {
+		while (choice != 11) {
 
 
-			System.out.println("Enter a choice: \n 1)Add a new AddressBook\n 2)Add a New Contact \n 3)Edit a contact \n 4)Delete Contact \n 5)View current Address Book Contacts"+ " \n 6)Search person in a city or state across the multiple Address Books \n 7)View persons by city or state \n "+ "8)Get count of contact persons by city or state \n 9)Sort entries by name in current address book\n 10)Exit");
+			System.out.println("Enter a choice: \n 1)Add a new AddressBook\n 2)Add a New Contact \n 3)Edit a contact \n 4)Delete Contact \n 5)View current Address Book Contacts"+ " \n 6)Search person in a city or state across the multiple Address Books \n 7)View persons by city or state \n "+ "8)Get count of contact persons by city or state \n 9)Sort entries by name in current address book\n 10)Sort entries in current address book by city, state or zip \n11)Exit");
 			choice = Integer.parseInt(sc.nextLine());
 			switch (choice) {
 			case 1: {
@@ -295,6 +320,14 @@ public class AddressBook {
 				break;
 			}
 			case 10: {
+				System.out.println("Enter 1 to sort by city \nEnter 2 to sort by state \nEnter 3 to sort by zipcode");
+				int sortChoice = Integer.parseInt(sc.nextLine());
+				List<Contact> sortedEntriesList = addressObj.sortAddressBookByChoice(sortChoice,
+						addressObj.addressList);
+				System.out.println(sortedEntriesList);
+				break;
+			}
+			case 11: {
 				System.out.println("Thank you for using the application");
 			}
 			}

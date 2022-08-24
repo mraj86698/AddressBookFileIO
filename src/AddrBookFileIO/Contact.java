@@ -1,8 +1,6 @@
 package AddrBookFileIO;
 
-import java.util.Comparator;
-
-public class Contact implements Comparator<Contact>{
+public class Contact {
 	private String firstName;
 	private String lastName;
 	private String address;
@@ -126,13 +124,6 @@ public class Contact implements Comparator<Contact>{
 		else
 			return false;
 	}
-	/**
-	 * Comparing two Objects and Return two integer value
-	 * This method returns -1,0,1 to say that it is either less than, equal to, or greater than the other object.
-	 */
-	@Override
-	public int compare(Contact o1, Contact o2) {
-		return (o1.getFirstName()+o1.getLastName()).compareTo(o2.getFirstName()+o2.getLastName());
-	}
+
 
 }
