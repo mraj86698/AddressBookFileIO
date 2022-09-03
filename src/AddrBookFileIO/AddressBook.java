@@ -230,7 +230,7 @@ public class AddressBook {
 		while (choice != 12) {
 
 
-			System.out.println("Enter a choice: \n 1)Add a new AddressBook\n 2)Add a New Contact \n 3)Edit a contact \n 4)Delete Contact \n 5)View current Address Book Contacts"+ " \n 6)Search person in a city or state across the multiple Address Books \n 7)View persons by city or state \n "+ "8)Get count of contact persons by city or state \n 9)Sort entries by name in current address book\n 10)Sort entries in current address book by city, state or zip \n11)11)View all contacts from all address books \n12)Exit");
+			System.out.println("Enter a choice: \n 1)Add a new AddressBook\n 2)Add a New Contact \n 3)Edit a contact \n 4)Delete Contact \n 5)View current Address Book Contacts"+ " \n 6)Search person in a city or state across the multiple Address Books \n 7)View persons by city or state \n "+ "8)Get count of contact persons by city or state \n 9)Sort entries by name in current address book\n 10)Sort entries in current address book by city, state or zip \n11)View all contacts from all address books \n12)Exit");
 			choice = Integer.parseInt(sc.nextLine());
 			switch (choice) {
 			case 1: {
