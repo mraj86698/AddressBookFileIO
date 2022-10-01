@@ -11,7 +11,7 @@ public class AddressBook {
 
 	Scanner sc = new Scanner(System.in);
 
-	AddressBookCSVService addressBookCsvService = new AddressBookCSVService();
+	AddressBookJSONService addressBookJsonService;
 
 	private List<Contact> addressList = new LinkedList<Contact>();
 	/**
@@ -28,7 +28,8 @@ public class AddressBook {
 	private String addressListName;
 
 	private void init() {
-		addressBookMap = addressBookCsvService.getAddressBookMap();
+		addressBookJsonService = new AddressBookJSONService();
+		addressBookMap = addressBookJsonService.getAddressBookMap();
 	}
 	private void setAddressListName(String listName) {
 		addressListName = listName;
@@ -58,7 +59,7 @@ public class AddressBook {
 		boolean isPresent = addressList.stream().anyMatch(obj -> obj.equals(contactObj));
 		if (isPresent == false) {
 			addressList.add(contactObj);
-			new  AddressBookCSVService().writeContactToAddressBook(contactObj, addressListName);
+			new  AddressBookJSONService().writeContactToAddressBook(contactObj, addressListName);
 			System.out.println("Contact added");
 			return true;
 		}
@@ -351,7 +352,7 @@ public class AddressBook {
 				break;
 			}
 			case 11: {
-				addressObj.addressBookCsvService.print();
+				addressObj.addressBookJsonService.print();
 				break;
 			}
 			case 12: {
