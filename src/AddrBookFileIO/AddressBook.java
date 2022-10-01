@@ -11,7 +11,7 @@ public class AddressBook {
 
 	Scanner sc = new Scanner(System.in);
 
-	AddressBookIO addressBookIO = new AddressBookIO();
+	AddressBookCSVService addressBookCsvService = new AddressBookCSVService();
 
 	private List<Contact> addressList = new LinkedList<Contact>();
 	/**
@@ -28,7 +28,11 @@ public class AddressBook {
 	private String addressListName;
 
 	private void init() {
-		addressBookMap = addressBookIO.getAddressBookMap();
+		addressBookMap = addressBookCsvService.getAddressBookMap();
+	}
+	private void setAddressListName(String listName) {
+		addressListName = listName;
+
 	}
 
 
@@ -54,7 +58,7 @@ public class AddressBook {
 		boolean isPresent = addressList.stream().anyMatch(obj -> obj.equals(contactObj));
 		if (isPresent == false) {
 			addressList.add(contactObj);
-			new AddressBookIO().writeContactToAddressBook(contactObj, addressListName);
+			new  AddressBookCSVService().writeContactToAddressBook(contactObj, addressListName);
 			System.out.println("Contact added");
 			return true;
 		}
@@ -124,7 +128,7 @@ public class AddressBook {
 	public void addAddressList(String listName) {
 		List<Contact> newAddressList = new LinkedList<Contact>();
 		addressBookMap.put(listName, newAddressList);
-		boolean isAddressBookAdded = new AddressBookIO().addAddressBook(listName);
+		boolean isAddressBookAdded = new  AddressBookCSVService().addAddressBook(listName);
 		if (isAddressBookAdded)
 			System.out.println("Address book added");
 		else
@@ -227,10 +231,11 @@ public class AddressBook {
 		 * Then Enter the Name of Address Book to add
 		 */
 		System.out.println("Welcome to address book program");
+		addressObj.init();
 		while (choice != 12) {
 
 
-			System.out.println("Enter a choice: \n 1)Add a new AddressBook\n 2)Add a New Contact \n 3)Edit a contact \n 4)Delete Contact \n 5)View current Address Book Contacts"+ " \n 6)Search person in a city or state across the multiple Address Books \n 7)View persons by city or state \n "+ "8)Get count of contact persons by city or state \n 9)Sort entries by name in current address book\n 10)Sort entries in current address book by city, state or zip \n11)View all contacts from all address books \n12)Exit");
+			System.out.println("Enter a choice: \n 1)Add a new AddressBook\n 2)Add a New Contact \n 3)Edit a contact \n 4)Delete Contact \n 5)View current Address Book Contacts"+ " \n 6)Search person in a city or state across the multiple Address Books \n 7)View persons by city or state \n "+ "8)Get count of contact persons by city or state \n 9)Sort entries by name in current address book\n 10)Sort entries in current address book by city, state or zip \n 11)View all contacts from all address books \n 12)Exit");
 			choice = Integer.parseInt(sc.nextLine());
 			switch (choice) {
 			case 1: {
@@ -245,6 +250,7 @@ public class AddressBook {
 				String listName = sc.nextLine();
 				if (addressObj.addressBookMap.containsKey(listName)) {
 					addressObj.addressList = addressObj.addressBookMap.get(listName);
+					addressObj.setAddressListName(listName);
 				}
 
 				else {
@@ -345,7 +351,7 @@ public class AddressBook {
 				break;
 			}
 			case 11: {
-				addressObj.addressBookIO.print();
+				addressObj.addressBookCsvService.print();
 				break;
 			}
 			case 12: {
